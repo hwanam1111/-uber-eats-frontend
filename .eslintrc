@@ -34,13 +34,14 @@
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "object-curly-newline": 0,
+    "no-shadow": "off",
     "prettier/prettier": [
       "warn",
       {
         "singleQuote": true,
         "trailingComma": "all"
       }
-    ],
-    "object-curly-newline": 0
+    ]
   }
 }
