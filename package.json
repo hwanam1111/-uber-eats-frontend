@@ -36,6 +36,7 @@
   },
   "scripts": {
     "tailwind:build": "tailwind build -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
+    "apollo:codegen": "apollo client:codegen src/__api__ --target=typescript --outputFlat",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
