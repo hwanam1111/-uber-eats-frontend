@@ -3,6 +3,7 @@
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
+    "project": "tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     }
@@ -16,12 +17,14 @@
     "airbnb",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
     "import",
-    "react-hooks"
+    "react-hooks",
+    "@typescript-eslint/eslint-plugin"
   ],
   "settings": { "import/resolver": { "node": { "extensions": [".js", ".jsx", ".ts", ".tsx"] } } },
   "rules": {
@@ -29,6 +32,14 @@
     "react/prefer-stateless-function": 0,
     "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": [
+      "warn",
+      {
+        "singleQuote": true,
+        "trailingComma": "all"
+      }
+    ]
   }
 }
