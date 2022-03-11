@@ -25,9 +25,10 @@
   ],
   "settings": { "import/resolver": { "node": { "extensions": [".js", ".jsx", ".ts", ".tsx"] } } },
   "rules": {
+    "import/extensions": "off",
     "react/prefer-stateless-function": 0,
     "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
-    "import/extensions": "off"
+    "react/jsx-props-no-spreading": "off"
   }
 }
