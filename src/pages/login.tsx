@@ -1,8 +1,11 @@
 import { gql, useMutation } from '@apollo/client';
 import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import Button from '../components/button';
 import FormError from '../components/form-error';
 import FormInput from '../components/form-input';
+import logo from '../images/logo.svg';
 import {
   loginMutation,
   loginMutationVariables,
@@ -28,8 +31,10 @@ function Login() {
     register,
     getValues,
     handleSubmit,
-    formState: { errors },
-  } = useForm<ILoginForm>();
+    formState: { isValid, errors },
+  } = useForm<ILoginForm>({
+    mode: 'all',
+  });
 
   const onCompleted = (data: loginMutation) => {
     const {
@@ -63,11 +68,14 @@ function Login() {
   }, [loading]);
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-400">
-      <div className="bg-white w-full max-w-lg py-10 rounded-lg text-center">
-        <h2 className="font-bold text-3xl text-gray-800">Log In</h2>
+    <div className="h-screen flex items-center flex-col mt-10 lg:mt-32">
+      <div className="w-full max-w-screen-sm flex flex-col items-center">
+        <img src={logo} alt="logo" className="w-48 mb-12" />
+        <h4 className="w-full font-medium text-left text-2xl mb-5 px-3">
+          Welcome back
+        </h4>
         <form
-          className="flex flex-col mt-10 px-5"
+          className="flex flex-col mt-10 w-full px-3 mb-5 lg:mt-5"
           onSubmit={handleSubmit(onSubmit)}
         >
           <FormInput
@@ -90,17 +98,21 @@ function Login() {
           {errors.password?.message && (
             <FormError message={errors.password.message} />
           )}
-          <button
-            type="submit"
-            className="mt-2 py-1.5 border border-red-400 hover:bg-red-400 hover:text-white transition-all rounded-md"
-            disabled={loading}
-          >
-            {loading ? 'Loading...' : 'Login'}
-          </button>
+          <Button
+            actionText={loading ? 'Loading...' : 'Log In'}
+            canClick={isValid && !loading}
+            loading={loading}
+          />
           {loginMutationResult?.login.error && (
             <FormError message={loginMutationResult.login.error} />
           )}
         </form>
+        <div>
+          New to Uber?{' '}
+          <Link to="/signup" className="text-lime-500 hover:underline">
+            Create an Account
+          </Link>
+        </div>
       </div>
     </div>
   );
