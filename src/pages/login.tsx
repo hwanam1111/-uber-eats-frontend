@@ -1,5 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import React, { useCallback } from 'react';
+import Helmet from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Button from '../components/button';
@@ -68,53 +69,58 @@ function Login() {
   }, [loading]);
 
   return (
-    <div className="h-screen flex items-center flex-col mt-10 lg:mt-32">
-      <div className="w-full max-w-screen-sm flex flex-col items-center">
-        <img src={logo} alt="logo" className="w-48 mb-12" />
-        <h4 className="w-full font-medium text-left text-2xl mb-5 px-3">
-          Welcome back
-        </h4>
-        <form
-          className="flex flex-col mt-10 w-full px-3 mb-5 lg:mt-5"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <FormInput
-            type="email"
-            placeholder="Email"
-            register={register('email', { required: 'Email is required' })}
-            required
-          />
-          {errors.email?.message && (
-            <FormError message={errors.email.message} />
-          )}
-          <FormInput
-            type="password"
-            placeholder="Password"
-            register={register('password', {
-              required: 'Password is required',
-            })}
-            required
-          />
-          {errors.password?.message && (
-            <FormError message={errors.password.message} />
-          )}
-          <Button
-            actionText={loading ? 'Loading...' : 'Log In'}
-            canClick={isValid && !loading}
-            loading={loading}
-          />
-          {loginMutationResult?.login.error && (
-            <FormError message={loginMutationResult.login.error} />
-          )}
-        </form>
-        <div>
-          New to Uber?{' '}
-          <Link to="/signup" className="text-lime-500 hover:underline">
-            Create an Account
-          </Link>
+    <>
+      <Helmet>
+        <title>Login | Uber eats clone</title>
+      </Helmet>
+      <div className="h-screen flex items-center flex-col mt-10 lg:mt-32">
+        <div className="w-full max-w-screen-sm flex flex-col items-center">
+          <img src={logo} alt="logo" className="w-48 mb-12" />
+          <h4 className="w-full font-medium text-left text-2xl mb-5 px-3">
+            Welcome back
+          </h4>
+          <form
+            className="flex flex-col mt-10 w-full px-3 mb-5 lg:mt-5"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <FormInput
+              type="email"
+              placeholder="Email"
+              register={register('email', { required: 'Email is required' })}
+              required
+            />
+            {errors.email?.message && (
+              <FormError message={errors.email.message} />
+            )}
+            <FormInput
+              type="password"
+              placeholder="Password"
+              register={register('password', {
+                required: 'Password is required',
+              })}
+              required
+            />
+            {errors.password?.message && (
+              <FormError message={errors.password.message} />
+            )}
+            <Button
+              actionText={loading ? 'Loading...' : 'Log In'}
+              canClick={isValid && !loading}
+              loading={loading}
+            />
+            {loginMutationResult?.login.error && (
+              <FormError message={loginMutationResult.login.error} />
+            )}
+          </form>
+          <div>
+            New to Uber?{' '}
+            <Link to="/signup" className="text-lime-500 hover:underline">
+              Create an Account
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
