@@ -49,7 +49,7 @@ function SignUp() {
     } = data;
 
     if (ok) {
-      navigate('/login', { replace: true });
+      navigate('/', { replace: true });
     }
   };
 
@@ -144,7 +144,7 @@ function SignUp() {
           </form>
           <div>
             Already have an account?{' '}
-            <Link to="/login" className="text-lime-500 hover:underline">
+            <Link to="/" className="text-lime-500 hover:underline">
               Log in now
             </Link>
           </div>
