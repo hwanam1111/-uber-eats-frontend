@@ -1,5 +1,6 @@
 import { gql, useApolloClient, useMutation } from '@apollo/client';
 import React, { useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/button';
 import FormError from '../../components/form-error';
@@ -81,54 +82,61 @@ function EditProfile() {
   }, [loading]);
 
   return (
-    <div className="mt-52 flex flex-col justify-center items-center">
-      <div className="w-full max-w-screen-sm flex flex-col items-center">
-        <h4>Edit Profile</h4>
-        <form
-          className="flex flex-col mt-10 w-full px-3 mb-5 lg:mt-5"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <FormInput
-            type="email"
-            placeholder="Email"
-            required={false}
-            register={register('email', {
-              pattern: {
-                value:
-                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: 'You must enter it in the form of an email.',
-              },
-            })}
-          />
-          {errors.email?.message && (
-            <FormError message={errors.email.message} />
-          )}
-          <FormInput
-            type="password"
-            placeholder="Password"
-            required={false}
-            register={register('password', {
-              pattern: {
-                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                message:
-                  'It must be a password containing 1-8 digits of numeric English.',
-              },
-            })}
-          />
-          {errors.password?.message && (
-            <FormError message={errors.password.message} />
-          )}
-          <Button
-            actionText="Edit Profile"
-            loading={loading}
-            canClick={!loading && isValid}
-          />
-          {editProfileMutationResult?.editProfile.error && (
-            <FormError message={editProfileMutationResult.editProfile.error} />
-          )}
-        </form>
+    <>
+      <Helmet>
+        <title>Edit Profile | Uber eats clone</title>
+      </Helmet>
+      <div className="mt-52 flex flex-col justify-center items-center">
+        <div className="w-full max-w-screen-sm flex flex-col items-center">
+          <h4>Edit Profile</h4>
+          <form
+            className="flex flex-col mt-10 w-full px-3 mb-5 lg:mt-5"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <FormInput
+              type="email"
+              placeholder="Email"
+              required={false}
+              register={register('email', {
+                pattern: {
+                  value:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: 'You must enter it in the form of an email.',
+                },
+              })}
+            />
+            {errors.email?.message && (
+              <FormError message={errors.email.message} />
+            )}
+            <FormInput
+              type="password"
+              placeholder="Password"
+              required={false}
+              register={register('password', {
+                pattern: {
+                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                  message:
+                    'It must be a password containing 1-8 digits of numeric English.',
+                },
+              })}
+            />
+            {errors.password?.message && (
+              <FormError message={errors.password.message} />
+            )}
+            <Button
+              actionText="Edit Profile"
+              loading={loading}
+              canClick={!loading && isValid}
+            />
+            {editProfileMutationResult?.editProfile.error && (
+              <FormError
+                message={editProfileMutationResult.editProfile.error}
+              />
+            )}
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

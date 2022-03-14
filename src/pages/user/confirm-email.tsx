@@ -1,5 +1,6 @@
 import { gql, useApolloClient, useMutation } from '@apollo/client';
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useMe from '../../hooks/useMe';
 import { verifyEmail, verifyEmailVariables } from '../../__api__/verifyEmail';
@@ -58,12 +59,17 @@ function ConfirmEmail() {
   }, []);
 
   return (
-    <div className="mt-52 flex flex-col items-center justify-center">
-      <h2 className="text-lg mb-3 font-medium">Confirming email...</h2>
-      <h4 className="text-gray-500 text-sm">
-        Please wait, do not close this page.
-      </h4>
-    </div>
+    <>
+      <Helmet>
+        <title>Verify Email | Uber eats clone</title>
+      </Helmet>
+      <div className="mt-52 flex flex-col items-center justify-center">
+        <h2 className="text-lg mb-3 font-medium">Confirming email...</h2>
+        <h4 className="text-gray-500 text-sm">
+          Please wait, do not close this page.
+        </h4>
+      </div>
+    </>
   );
 }
 
