@@ -5,6 +5,7 @@ import NotFound from '../pages/404';
 import Header from '../components/header';
 import useMe from '../hooks/useMe';
 import ConfirmEmail from '../pages/user/confirm-email';
+import EditProfile from '../pages/user/edit-profile';
 
 const ClientRoutes = [
   <Route key="restaurant" path="/" element={<Restaurants />} />,
@@ -27,6 +28,7 @@ function LoggedInRouter() {
       <Routes>
         {data.me.role === 'Client' && ClientRoutes}
         <Route path="/confirm" element={<ConfirmEmail />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
