@@ -17,7 +17,9 @@ function Header() {
       )}
       <header className="py-4">
         <div className="px-5 lg:px-16 mx-auto flex justify-between items-center">
-          <img src={logo} alt="logo" className="w-36" />
+          <Link to="/">
+            <img src={logo} alt="logo" className="w-36" />
+          </Link>
           <span className="text-ws">
             <Link to="/edit-profile">
               <FontAwesomeIcon icon={faUser} className="text-xl" />
