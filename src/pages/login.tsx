@@ -1,8 +1,9 @@
 import { gql, useMutation } from '@apollo/client';
 import React, { useCallback } from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { authToken, isLoggedInVar } from '../apollo';
 import Button from '../components/button';
 import FormError from '../components/form-error';
 import FormInput from '../components/form-input';
@@ -39,11 +40,16 @@ function Login() {
 
   const onCompleted = (data: loginMutation) => {
     const {
-      login: { error, ok, token },
+      login: { ok, token },
     } = data;
 
-    if (ok) {
-      console.log(token);
+    if (ok && token) {
+      localStorage.setItem(
+        process.env.REACT_APP_LOCAL_STORAGE_TOKEN as string,
+        token,
+      );
+      authToken(token);
+      isLoggedInVar(true);
     }
   };
 
