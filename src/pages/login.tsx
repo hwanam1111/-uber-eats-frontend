@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { authToken, isLoggedInVar } from '../apollo';
+import { authTokenVar, isLoggedInVar } from '../apollo';
 import Button from '../components/button';
 import FormError from '../components/form-error';
 import FormInput from '../components/form-input';
@@ -48,7 +48,7 @@ function Login() {
         process.env.REACT_APP_LOCAL_STORAGE_TOKEN as string,
         token,
       );
-      authToken(token);
+      authTokenVar(token);
       isLoggedInVar(true);
     }
   };
