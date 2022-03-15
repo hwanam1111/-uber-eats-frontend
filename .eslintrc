@@ -36,6 +36,7 @@
     "@typescript-eslint/no-explicit-any": "off",
     "object-curly-newline": 0,
     "no-shadow": "off",
+    "import/prefer-default-export": "off",
     "prettier/prettier": [
       "warn",
       {
