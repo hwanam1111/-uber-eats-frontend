@@ -1,6 +1,11 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import Category from '../../components/category';
 import Restaurant from '../../components/restaurant';
+import { CATEGORY_FRAGMENT, RESTAURANT_FRAGMENT } from '../../fragments';
 import {
   restaurantsPage,
   restaurantsPageVariables,
@@ -12,11 +17,7 @@ const ALL_RESTAURANTS_QUERY = gql`
       ok
       error
       categories {
-        id
-        name
-        coverImg
-        slug
-        restaurantCount
+        ...CategoryParts
       }
     }
     allRestaurants(input: $input) {
@@ -25,18 +26,17 @@ const ALL_RESTAURANTS_QUERY = gql`
       totalPages
       totalResults
       results {
-        id
-        name
-        coverImage
-        category {
-          name
-        }
-        address
-        isPromoted
+        ...RestaurantParts
       }
     }
   }
+  ${RESTAURANT_FRAGMENT}
+  ${CATEGORY_FRAGMENT}
 `;
+
+interface ISearchForm {
+  searchTerm: string;
+}
 
 function Restaurants() {
   const [page, setPage] = useState(1);
@@ -60,13 +60,31 @@ function Restaurants() {
     setPage((current) => current + 1);
   };
 
+  const { register, handleSubmit, getValues } = useForm<ISearchForm>();
+  const navigate = useNavigate();
+  const onSearchSubmit = () => {
+    const { searchTerm } = getValues();
+    navigate({
+      pathname: '/search',
+      search: `?term=${searchTerm}`,
+    });
+  };
+
   return (
     <div>
-      <form className="bg-gray-800 w-full py-40 flex items-center justify-center">
+      <Helmet>
+        <title>Restaurants | Uber eats clone</title>
+      </Helmet>
+      <form
+        onSubmit={handleSubmit(onSearchSubmit)}
+        className="bg-gray-800 w-full py-40 flex items-center justify-center"
+      >
         <input
           type="search"
           placeholder="Search restaurants.."
-          className="p-3 border border-gray-200 text-md font-light outline-none transition-colors focus:border-gray-500 mb-3 rounded-sm w-3/6"
+          className="p-3 border border-gray-200 text-md font-light outline-none transition-colors focus:border-gray-500 mb-3 rounded-sm w-11/12 md:w-3/6"
+          {...register('searchTerm', { required: true, min: 3 })}
+          required
         />
       </form>
       {!loading && (
@@ -74,25 +92,17 @@ function Restaurants() {
           <div className="border-b lg:px-16">
             <div className="flex items-center justify-around py-8 px-5 max-w-screen-sm mx-auto">
               {data?.allCategory.categories?.map((category) => (
-                <div
-                  className="flex flex-col items-center cursor-pointer group"
+                <Category
                   key={category.id}
-                >
-                  <div className="w-20 h-20 rounded-full transition-colors group-hover:bg-gray-200">
-                    <img
-                      src={category.coverImg}
-                      alt={category.name}
-                      className="p-5"
-                    />
-                  </div>
-                  <span className="mt-3 text-center font-bold">
-                    {category.name}
-                  </span>
-                </div>
+                  id={category.id}
+                  coverImg={category.coverImg}
+                  name={category.name}
+                  slug={category.slug}
+                />
               ))}
             </div>
           </div>
-          <div className="mt-10 px-5 lg:px-16 grid grid-cols-3 gap-x-8 gap-y-10">
+          <div className="mt-10 px-5 lg:px-16 grid md:grid-cols-3 gap-x-8 gap-y-10">
             {data?.allRestaurants.results?.map((restaurant) => (
               <Restaurant
                 key={restaurant.id}

@@ -6,9 +6,13 @@ import Header from '../components/header';
 import useMe from '../hooks/useMe';
 import ConfirmEmail from '../pages/user/confirm-email';
 import EditProfile from '../pages/user/edit-profile';
+import Search from '../pages/client/search';
+import Category from '../pages/client/category';
 
 const ClientRoutes = [
   <Route key="restaurant" path="/" element={<Restaurants />} />,
+  <Route key="search" path="/search" element={<Search />} />,
+  <Route key="category" path="/category/:slug" element={<Category />} />,
 ];
 
 function LoggedInRouter() {
