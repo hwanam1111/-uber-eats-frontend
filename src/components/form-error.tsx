@@ -6,7 +6,10 @@ interface IFormErrorProps {
 
 function FormError({ message }: IFormErrorProps) {
   return (
-    <div className="font-bold mb-5 text-red-600 text-left text-sm pl-1">
+    <div
+      role="alert"
+      className="font-bold mb-5 text-red-600 text-left text-sm pl-1"
+    >
       {message}
     </div>
   );

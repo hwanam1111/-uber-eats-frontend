@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 import React from 'react';
 
 interface IButtonProps {
@@ -9,6 +10,7 @@ interface IButtonProps {
 function Button({ canClick, loading, actionText }: IButtonProps) {
   return (
     <button
+      role="button"
       type="submit"
       className={` mt-2 p-2.5 text-white rounded-sm transition-colors ${
         canClick
