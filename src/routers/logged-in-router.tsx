@@ -8,11 +8,13 @@ import ConfirmEmail from '../pages/user/confirm-email';
 import EditProfile from '../pages/user/edit-profile';
 import Search from '../pages/client/search';
 import Category from '../pages/client/category';
+import Restaurant from '../pages/client/restaurant';
 
 const ClientRoutes = [
-  <Route key="restaurant" path="/" element={<Restaurants />} />,
+  <Route key="restaurants" path="/" element={<Restaurants />} />,
   <Route key="search" path="/search" element={<Search />} />,
   <Route key="category" path="/category/:slug" element={<Category />} />,
+  <Route key="restaurant" path="/restaurants/:id" element={<Restaurant />} />,
 ];
 
 function LoggedInRouter() {

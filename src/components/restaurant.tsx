@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface IRestaurantProps {
   restaurantId: number;
@@ -14,7 +15,7 @@ function Restaurant({
   categoryName,
 }: IRestaurantProps) {
   return (
-    <div className="flex flex-col">
+    <Link to={`/restaurants/${restaurantId}`} className="flex flex-col">
       <div
         style={{ backgroundImage: `url(${coverImage})` }}
         className="bg-cover bg-center mb-3 py-28"
@@ -23,7 +24,7 @@ function Restaurant({
       <span className="border-t border-gray-300 opacity-60 pt-3">
         {categoryName}
       </span>
-    </div>
+    </Link>
   );
 }
 
