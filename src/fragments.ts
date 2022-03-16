@@ -22,3 +22,21 @@ export const CATEGORY_FRAGMENT = gql`
     restaurantCount
   }
 `;
+
+export const MENU_FRAGMENT = gql`
+  fragment MenuParts on Menu {
+    id
+    name
+    price
+    photo
+    description
+    options {
+      name
+      extra
+      choices {
+        name
+        extra
+      }
+    }
+  }
+`;

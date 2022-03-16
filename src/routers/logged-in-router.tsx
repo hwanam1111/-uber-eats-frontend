@@ -11,6 +11,8 @@ import Category from '../pages/client/category';
 import Restaurant from '../pages/client/restaurant';
 import MyRestaurants from '../pages/owner/my-restaurants';
 import AddRestaurant from '../pages/owner/add-restaurant';
+import MyRestaurant from '../pages/owner/my-restaurant';
+import AddMenu from '../pages/owner/add-menu';
 
 const commonRoutes = [
   {
@@ -50,6 +52,14 @@ const ownerRoutes = [
   {
     path: '/add-restaurant',
     component: <AddRestaurant />,
+  },
+  {
+    path: '/restaurants/:id',
+    component: <MyRestaurant />,
+  },
+  {
+    path: '/restaurants/:restaurantId/add-menu',
+    component: <AddMenu />,
   },
 ];
 
