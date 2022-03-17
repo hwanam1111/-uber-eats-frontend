@@ -2,7 +2,8 @@ import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { RESTAURANT_FRAGMENT } from '../../fragments';
+import Menu from '../../components/menu';
+import { MENU_FRAGMENT, RESTAURANT_FRAGMENT } from '../../fragments';
 import {
   findRestaurantById,
   findRestaurantByIdVariables,
@@ -15,10 +16,14 @@ const FIND_RESTAURANT_BY_ID_QUERY = gql`
       error
       result {
         ...RestaurantParts
+        menu {
+          ...MenuParts
+        }
       }
     }
   }
   ${RESTAURANT_FRAGMENT}
+  ${MENU_FRAGMENT}
 `;
 
 function Restaurant() {
@@ -34,8 +39,6 @@ function Restaurant() {
       },
     },
   });
-
-  console.log(data);
 
   return (
     <div>
@@ -61,6 +64,24 @@ function Restaurant() {
             {data?.findRestaurantById.result?.address}
           </h6>
         </div>
+      </div>
+      <div className="px-16">
+        {data?.findRestaurantById.result?.menu.length === 0 ? (
+          <span className="text-lime-600 mt-10 block">Do not have menu</span>
+        ) : (
+          <div className="my-10 grid md:grid-cols-3 gap-x-8 gap-y-10">
+            {data?.findRestaurantById.result?.menu.map((menu) => (
+              <Menu
+                key={menu.id}
+                name={menu.name}
+                description={menu.description}
+                price={menu.price}
+                options={menu.options}
+                isCustomer
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -157,6 +157,7 @@ function MyRestaurant() {
                   name={menu.name}
                   description={menu.description}
                   price={menu.price}
+                  isCustomer={false}
                 />
               ))}
             </div>
