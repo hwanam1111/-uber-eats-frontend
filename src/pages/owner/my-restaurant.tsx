@@ -86,23 +86,31 @@ function MyRestaurant() {
   const { data: userData } = useMe();
   const triggerPaddle = () => {
     if (userData?.me.email) {
-      // @ts-ignore
-      window.Paddle.Setup({ vendor: 666 });
-      // @ts-ignore
-      window.Paddle.Checkout.open({
-        product: 666,
-        email: userData.me.email,
-        successCallback: (data: any) => {
-          createPaymentMutation({
-            variables: {
-              input: {
-                transactionId: data.checkout.id,
-                restaurantId: Number(params.id),
-              },
-            },
-          });
+      createPaymentMutation({
+        variables: {
+          input: {
+            transactionId: 'temp-id',
+            restaurantId: Number(params.id),
+          },
         },
       });
+      // // @ts-ignore
+      // window.Paddle.Setup({ vendor: 666 });
+      // // @ts-ignore
+      // window.Paddle.Checkout.open({
+      //   product: 666,
+      //   email: userData.me.email,
+      //   successCallback: (data: any) => {
+      //     createPaymentMutation({
+      //       variables: {
+      //         input: {
+      //           transactionId: data.checkout.id,
+      //           restaurantId: Number(params.id),
+      //         },
+      //       },
+      //     });
+      //   },
+      // });
     }
   };
 
